@@ -3,7 +3,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 import time
 
-from config import get_settings
+from Pinscape.backend.config import get_settings
 
 settings = get_settings()
 _bearer = HTTPBearer()

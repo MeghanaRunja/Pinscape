@@ -5,8 +5,8 @@ import jwt
 import time
 import secrets
 
-from config import get_settings
-from models.schemas import TokenResponse
+from Pinscape.backend.config import get_settings
+from Pinscape.backend.models.schemas import TokenResponse
 
 router = APIRouter()
 settings = get_settings()

@@ -4,7 +4,7 @@ import base64
 import mimetypes
 from pathlib import Path
 
-from config import get_settings
+from Pinscape.backend.config import get_settings
 
 settings = get_settings()
 UPLOAD_DIR = Path(settings.upload_dir)

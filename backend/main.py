@@ -3,7 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 
-from routers import auth, pinterest, analyze
+from Pinscape.backend.routers import analyze, auth
+from Pinscape.backend.routers import pinterest
 
 
 @asynccontextmanager

@@ -2,9 +2,9 @@ import json
 import httpx
 from typing import Any
 
-from config import get_settings
-from models.schemas import AnalysisResult
-from services.storage_service import load_as_base64, fetch_url_as_base64
+from Pinscape.backend.config import get_settings
+from Pinscape.backend.models.schemas import AnalysisResult
+from Pinscape.backend.services.storage_service import load_as_base64, fetch_url_as_base64
 
 settings = get_settings()
 

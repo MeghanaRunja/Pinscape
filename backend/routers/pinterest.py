@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 import httpx
 
-from models.schemas import BoardsResponse, PinsResponse, Board, Pin, PinterestUser
-from services.auth_service import get_current_pinterest_token
+from Pinscape.backend.models.schemas import BoardsResponse, PinsResponse, Board, Pin, PinterestUser
+from Pinscape.backend.services.auth_service import get_current_pinterest_token
 
 router = APIRouter()
 

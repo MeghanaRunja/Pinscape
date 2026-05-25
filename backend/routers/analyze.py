@@ -5,10 +5,10 @@ import uuid
 import os
 import json
 
-from models.schemas import AnalyzeRequest, AnalyzeResponse
-from services.storage_service import save_upload, get_upload_url
-from services.vision_service import analyze_with_claude
-from services.auth_service import get_current_pinterest_token
+from Pinscape.backend.models.schemas import AnalyzeRequest, AnalyzeResponse
+from Pinscape.backend.services.storage_service import save_upload, get_upload_url
+from Pinscape.backend.services.vision_service import analyze_with_claude
+from Pinscape.backend.services.auth_service import get_current_pinterest_token
 
 router = APIRouter()
 
