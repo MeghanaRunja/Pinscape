@@ -10,7 +10,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { RootStackParamList } from '../navigation/RootNavigator';
 import CATEGORIES from '../config/categories';
 import { Colors, Spacing, Radius } from '../theme';
-import { uploadPhotos } from '../services/api';
+import { uploadPhotos, API_BASE } from '../services/api';
 
 type Nav   = NativeStackNavigationProp<RootStackParamList>;
 type Route = RouteProp<RootStackParamList, 'Upload'>;
@@ -43,7 +43,7 @@ export default function UploadScreen() {
 
   const showPicker = () =>
     Alert.alert('Add photo', '', [
-      { text: 'Camera',       onPress: () => pickPhoto(true)  },
+      { text: 'Camera',        onPress: () => pickPhoto(true)  },
       { text: 'Photo library', onPress: () => pickPhoto(false) },
       { text: 'Cancel', style: 'cancel' },
     ]);
@@ -63,14 +63,33 @@ export default function UploadScreen() {
         name: p.fileName ?? 'photo.jpg',
         type: p.mimeType ?? 'image/jpeg',
       }));
+
+      // Log exactly what URL we're hitting so we can catch IP mismatches
+      console.log('[upload] API_BASE =', API_BASE);
+      console.log('[upload] Uploading', files.length, 'file(s) for category', params.categoryKey);
+
       const { data } = await uploadPhotos(files, params.categoryKey);
+
+      console.log('[upload] Success, keys:', data.keys);
+
       nav.navigate('Pins', {
         categoryKey:   params.categoryKey,
         photoKeys:     data.keys,
         anglesCovered: [...angles],
       });
-    } catch {
-      Alert.alert('Upload failed', 'Check that your backend is running and try again.');
+    } catch (err: any) {
+      // Show the actual error so we know what went wrong
+      const message =
+        err?.response?.data?.detail ??   // FastAPI error body
+        err?.message ??                  // network/axios error
+        String(err);
+
+      console.error('[upload] Error:', err);
+
+      Alert.alert(
+        'Upload failed',
+        `Error: ${message}\n\nAPI: ${API_BASE}`,
+      );
     } finally {
       setUploading(false);
     }
@@ -99,7 +118,9 @@ export default function UploadScreen() {
             color={photos.length > 0 ? Colors.teal400 : Colors.gray400}
           />
           <Text style={[s.zoneLbl, photos.length > 0 && { color: Colors.teal600 }]}>
-            {photos.length > 0 ? `${photos.length} photo${photos.length > 1 ? 's' : ''} added` : 'Tap to upload or take a photo'}
+            {photos.length > 0
+              ? `${photos.length} photo${photos.length > 1 ? 's' : ''} added`
+              : 'Tap to upload or take a photo'}
           </Text>
           <Text style={s.zoneHnt}>{photos.length > 0 ? 'Tap to add more' : 'JPG, PNG, HEIC'}</Text>
         </TouchableOpacity>

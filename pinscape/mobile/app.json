@@ -15,7 +15,12 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.pinscape.app"
+      "bundleIdentifier": "com.pinscape.app",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -25,31 +30,13 @@
       "package": "com.pinscape.app",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
-      "intentFilters": [
-        {
-          "action": "VIEW",
-          "autoVerify": true,
-          "data": [
-            {
-              "scheme": "pinscape"
-            }
-          ],
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
-        }
-      ]
+      "usesCleartextTraffic": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
-      "apiBase": "http://localhost:8000"
-    },
-    "plugins": [
-      "expo-secure-store",
-      "expo-web-browser"
-    ]
+      "apiBase": "http://your-ip:8000"
+    }
   }
 }

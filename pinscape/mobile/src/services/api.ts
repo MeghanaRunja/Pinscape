@@ -7,12 +7,12 @@ import Constants from 'expo-constants';
 // physical device (your machine's LAN IP) or a deployed server.
 //
 // app.json example:
-//   "extra": { "apiBase": "http://192.168.1.42:8000" }
+//   "extra": { "apiBase": "http://your-ip:8000" }
 //
 // Falls back to localhost for convenience when the key is not set.
 export const API_BASE: string =
   (Constants.expoConfig?.extra as { apiBase?: string } | undefined)?.apiBase ??
-  'http://localhost:8000';
+  'http://http://your-ip:8000';
 
 const api = axios.create({ baseURL: API_BASE, timeout: 60_000 });
 
